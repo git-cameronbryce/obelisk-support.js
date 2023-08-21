@@ -3,7 +3,7 @@ const { token } = require('./other-config/config.json');
 const path = require('path');
 const fs = require('fs');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 client.commands = new Collection();
 
 const eventsPath = path.join(__dirname, './event-handler');
