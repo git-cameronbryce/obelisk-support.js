@@ -1,7 +1,15 @@
 const { Client, Events, Collection, GatewayIntentBits, ActivityType } = require('discord.js');
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
 const { token } = require('./other-config/config.json');
 const path = require('path');
 const fs = require('fs');
+
+const serviceAccount = require('./other-config/firebase.json');
+initializeApp({ credential: cert(serviceAccount) });
+const db = getFirestore();
+
+module.exports = { db };
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 client.commands = new Collection();

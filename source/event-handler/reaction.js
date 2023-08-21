@@ -1,14 +1,12 @@
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } = require('discord.js');
-const { db } = require('../script.js');
+const { Events, EmbedBuilder } = require('discord.js');
 
 process.on("unhandledRejection", (err) => console.error(err));
 
 module.exports = {
   name: Events.ClientReady,
-
   execute(client) {
     client.on(Events.InteractionCreate, async interaction => {
-      const verifiedRole = '1143190075606319217';
+      const verifiedRole = '1069116348669628476';
 
       if (interaction.customId === 'accept-terms') {
         await interaction.deferReply({ ephemeral: true });
@@ -24,18 +22,7 @@ module.exports = {
           await interaction.followUp({ embeds: [embed], ephemeral: true })
         }
 
-        const removeRole = async () => {
-          const embed = new EmbedBuilder()
-            .setDescription(`Discord Role: <@&${verifiedRole}>\nHas been removed from your account.`)
-            .setFooter({ text: 'Tip: Contact support if there are issues.' })
-            .setColor('#2ecc71')
-
-          console.log('Role Removed')
-          await interaction.member.roles.remove(verifiedRole)
-          await interaction.followUp({ embeds: [embed], ephemeral: true })
-        }
-
-        interaction.member.roles.cache.has(verifiedRole)
+        await interaction.member.roles.cache.has(verifiedRole)
           ? giveRole() : giveRole()
       }
 
@@ -53,7 +40,7 @@ module.exports = {
           await interaction.followUp({ embeds: [embed], ephemeral: true })
         }
 
-        interaction.member.roles.cache.has(verifiedRole)
+        await interaction.member.roles.cache.has(verifiedRole)
           ? removeRole() : removeRole()
       }
     });
